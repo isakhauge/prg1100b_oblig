@@ -1,7 +1,7 @@
 # Contact list (Java application)
 
 
-**COURSE:** PRG1100B (PROGRAMMING 2)<br/>
+**COURSE:** PRG1100B (PROGRAMMING 2)<br>
 **UNIVERSITY:** UNIVERSITY OF SOUTHEAST NORWAY (USN)
 
 
