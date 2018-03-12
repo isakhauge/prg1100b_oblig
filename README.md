@@ -39,7 +39,7 @@ The Java application.
   * Give option to backup contact list from DB to local CSV file
 * User interface
   * Stage window must not exceed width nor height of 600px
-  * All UI components regaring interaction (e.g. buttons), must be interact with ActionPerformed-events
+  * All UI components regaring interaction (e.g. buttons), must interact with ActionPerformed-events
   * Must contain the following UI components
     * Button
     * Label
