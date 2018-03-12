@@ -8,7 +8,7 @@
 <br>
 
 ## Requirements
-The Java application.
+This contact list application must include the adequate functionalities for basic CRUD operations to the data it manages. Said data must encompass phone numbers, first-and-last names, and addresses.
 
 <br>
 
