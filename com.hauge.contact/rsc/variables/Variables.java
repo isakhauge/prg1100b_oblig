@@ -1,8 +1,8 @@
 /*
- *  ==================================================
- *  PRELIMINARY DATA: START
- *  ==================================================
- */
+==================================================
+    PRELIMINARY DATA: START
+==================================================
+*/
 
 // PACKAGE:
 package com.hauge.contact.rsc.variables.Variables;
@@ -11,17 +11,17 @@ package com.hauge.contact.rsc.variables.Variables;
 // LIBRARIES:
 
 /*
- *  ==================================================
- *  PRELIMINARY DATA: END
- *  ==================================================
- */
+==================================================
+    PRELIMINARY DATA: END
+==================================================
+*/
 
 
 public class Variables {
 
     // === APPLICATION INFORMAITON === :
 
-        // --- GENERAL --- :
+        // GENERAL:
         public static String app_name = "Hauge Contact Manager";
         public static String app_author = "Isak K. Hauge";
         public static String app_version = "1.0";
@@ -29,7 +29,7 @@ public class Variables {
 
     // === GRAPHIC USER INTERFACE === :
 
-        // --- WINDOW --- :
+        // WINDOW:
         public static int ui_win_title = "Hauge Contact Manager";
         public static int ui_win_width = 600;
         public static int ui_win_height = 600;
