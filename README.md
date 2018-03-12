@@ -22,4 +22,4 @@ Lorem ipsum.
 <br>
 
 ### Non-functional requirements
-Lorem ipsum.
+Lorem ipsum..
