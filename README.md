@@ -3,7 +3,7 @@
 <br>
 <br>
 
-**COURSE:**     PRG1100B (PROGRAMMING 2)<br>
+**COURSE:** PRG1100B (PROGRAMMING 2)<br>
 **UNIVERSITY:** UNIVERSITY OF SOUTHEAST NORWAY (USN)
 
 <br>
@@ -22,4 +22,4 @@ Lorem ipsum.
 <br>
 
 ### Non-functional requirements
-Lorem ipsum..
+Lorem ipsum.
