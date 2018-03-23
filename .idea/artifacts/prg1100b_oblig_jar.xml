@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="prg1100b_oblig:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/prg1100b_oblig_jar</output-path>
+    <root id="archive" name="prg1100b_oblig.jar">
+      <element id="module-output" name="prg1100b_oblig" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/com/hauge/contacts/rsc/db/sqlite-jdbc-3.21.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
