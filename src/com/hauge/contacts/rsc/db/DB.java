@@ -11,6 +11,7 @@
     // LIBRARIES:
 
         // Official libraries:
+        import com.sun.codemodel.internal.JOp;
         import org.sqlite.SQLiteException;
 
         import javax.swing.*;
@@ -502,75 +503,91 @@ public class DB {
 
             // PRELIMINARY STAGE:
 
-                // Method data:
-                String method_title = "Format table (SQL)";
-                String method_status;
-                String method_msg;
+                // Message variables:
+                String msg_text;
+                String msg_title = "Format table";
+                String msg_category;
 
                 // Initialize SQL String:
                 String sql_code = "DELETE FROM `Person`";
 
-                // Count row-and-column count:
+                // Count current row-and-column count:
                 int row_count = getDB_table_row_count();
 
 
+            // USER CONFIRMATION:
+
+                int choice = option("Are you sure you want to format your entire contact list?", msg_title);
 
 
-            // SEND DELETE QUERY TO SERVER:
+            // SEND DELETE CODE TO SERVER:
 
-                try{
-                    // Establish connection with database:
-                    db_connect();
+                if ( choice < 1 ) {
 
-                    Statement stmt = conn.createStatement();
-                    stmt.executeUpdate(sql_code);
+                    if ( row_count > 0 ) {
 
-                    // Terminate connection:
-                    db_disconnect();
+                        try{
 
-                    method_status = ": Success!";
-                    method_msg = "All table entries was successfully deleted.";
-                    msg_out(method_msg,method_title+method_status,"info");
-                }
-                catch ( SQLSyntaxErrorException e ) {
-                    method_status = ": Error!";
-                    method_msg = "Syntax error. There is an error within the SQL code." + NL + "Tables were not deleted.";
-                    msg_out(method_msg,method_title+method_status,"error");
-                }
-                catch ( SQLiteException e ) {
-                    method_status = ": Error!";
-                    method_msg = "SQLite Error. There is an error with the SQLite application." + NL + "Tables were not deleted.";
-                    msg_out(method_msg,method_title+method_status,"error");
-                }
-                catch ( SQLException e ) {
+                            // Establish connection with database:
+                            db_connect();
 
-                    int error_code = e.getErrorCode();
+                            Statement stmt = conn.createStatement();
+                            stmt.executeUpdate(sql_code);
 
-                    if ( error_code == 101 ) {
+                            // Terminate connection:
+                            db_disconnect();
 
-                        if ( row_count <= 0 ) {
+                            if ( getDB_table_row_count() < 1 ) {
 
-                            method_status = ": There is nothing here!";
-                            method_msg = "Table is empty. No tables were deleted.";
-                            msg_out(method_msg,method_title+method_status,"warning");
+                                row_count -= getDB_table_row_count();
 
-                        } else {
+                                // Define message:
+                                msg_title += ": Success!";
+                                msg_text = "Table was successfully formatted." + NL + "Details: " + row_count + " rows deleted.";
+                                msg_category = "info";
 
-                            int deleted_row_count = row_count - getDB_table_row_count();
-                            method_status = ": Success!";
-                            method_msg = deleted_row_count + " table entries was successfully deleted.";
-                            msg_out(method_msg,method_title+method_status,"info");
+                                // Run message:
+                                msg_out(msg_text,msg_title,msg_category);
+
+                            } else {
+
+                                // Define message:
+                                msg_title += ": Error!";
+                                msg_text = "The delete command was successfully executed, but the data was not removed.";
+                                msg_category = "error";
+
+                                // Run message:
+                                msg_out(msg_text,msg_title,msg_category);
+
+                            }
+
+                        } catch ( SQLException e ) {
+
+                            e.printStackTrace();
 
                         }
 
                     } else {
 
-                        String error_msg = String.valueOf(e);
-                        method_status = ": Error!";
-                        method_msg = "Undefined error occurred. " + "(ERROR: " + error_code + ")"  + NL + error_msg;
-                        msg_out(method_msg,method_title+method_status,"error");
+                        // Define message:
+                        msg_title += ": Nothing to delete";
+                        msg_text = "Are you drunk? There is nothing to format.";
+                        msg_category = "error";
+
+                        // Run message:
+                        msg_out(msg_text,msg_title,msg_category);
 
                     }
+
+                } else {
+
+                    // Define message:
+                    msg_title += ": Close call!";
+                    msg_text = "Shit! Close call there, buddy!" + NL + "Please be more careful next time, ok?";
+                    msg_category = "info";
+
+                    // Run message:
+                    msg_out(msg_text,msg_title,msg_category);
 
                 }
 
@@ -583,21 +600,30 @@ public class DB {
             String sql_code = "DELETE FROM `Person` WHERE `tlf` = ";
             sql_code += "'" + phone + "'";
 
-            try {
+            int choice = option("Are you sure you want to delete the number, " + phone + ", from your catalogue?","Delete contact");
 
-                db_connect();
-                Statement stmt = conn.createStatement();
-                stmt.executeUpdate(sql_code);
-                db_disconnect();
+            if ( choice < 1 ) {
 
-                String msg = "A person with the number (" + phone + ") was deleted.";
-                msg_out(msg, "Person deleted", "warning");
+                try {
 
-            }
-            catch ( SQLException e ) {
+                    db_connect();
+                    Statement stmt = conn.createStatement();
+                    stmt.executeUpdate(sql_code);
+                    db_disconnect();
 
-                msg_out("It worked - perhaps.", "Delete person", "info");
-                e.printStackTrace();
+                    String msg = "A person with the number, " + phone + ", was deleted from your catalogue.";
+                    msg_out(msg, "Contact deleted", "warning");
+
+                }
+                catch ( SQLException e ) {
+
+                    msg_out("Something went wrong." + NL + "Error: " + String.valueOf(e), "Delete contact", "error");
+
+                }
+
+            } else {
+
+                msg_out("Stay cool. No one was deleted from your catalogue.", "Delete contact", "info");
 
             }
 
@@ -941,7 +967,7 @@ public class DB {
 
         // DB MESSAGE BOX:
 
-            private void msg_out(String text, String title, String category ) {
+            private void msg_out( String text, String title, String category ) {
 
                 switch ( category ) {
 
@@ -963,7 +989,7 @@ public class DB {
 
         // DB MESSAGE BOX:
 
-            private String msg_in(String text, String title, String category ) {
+            private String msg_in( String text, String title, String category ) {
 
             switch ( category ) {
 
@@ -976,5 +1002,14 @@ public class DB {
             }
 
     }
+
+
+        // DB OPTION BOX:
+
+            private int option( String text, String title ) {
+
+                return javax.swing.JOptionPane.showConfirmDialog(null, text, title, JOptionPane.YES_NO_OPTION);
+
+            }
 
 }
